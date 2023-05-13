@@ -1,17 +1,18 @@
 "use client";
 import HtmlEditor from "@/app/components/HtmlEditor";
 import Axios from "@/utils/Axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 async function page() {
   const [htmlContent, setHtmlContent] = useState("");
+  const [categories, setCategories] = useState([]);
   async function getCategories() {
-    const res = await fetch(`http://localhost:3000/api/category`);
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
+    try {
+      const res = await Axios.get(`${process.env.baseUrl}/api/category`);
+      setCategories(res.data);
+    } catch (error) {
+      console.log(error.response);
     }
-
-    return res.json();
   }
   const handleHtmlChange = (value) => {
     setHtmlContent(value);
@@ -37,7 +38,9 @@ async function page() {
         console.log(error);
       });
   };
-  const categories = await getCategories();
+  useEffect(() => {
+    getCategories();
+  }, []);
   return (
     <div className="flex justify-center items-center h-full">
       <form className="lg:w-1/2 w-full mx-3">
@@ -48,9 +51,7 @@ async function page() {
 
           <div className="mt-10">
             <div>
-              <label
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label className="block text-sm font-medium leading-6 text-gray-900">
                 Post Title
               </label>
               <div className="mt-2">
@@ -79,9 +80,7 @@ async function page() {
               </div>
             </div>
             <div>
-              <label
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label className="block text-sm font-medium leading-6 text-gray-900">
                 Slug
               </label>
               <div className="mt-2">
@@ -95,9 +94,7 @@ async function page() {
               </div>
             </div>
             <div className="col-span-full">
-              <label
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label className="block text-sm font-medium leading-6 text-gray-900">
                 Cover photo
               </label>
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -107,9 +104,7 @@ async function page() {
                     aria-hidden="true"
                   >
                     <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                      <label
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                      >
+                      <label className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                         <span>Upload a file</span>
                         <input
                           id="file-upload"
@@ -130,10 +125,7 @@ async function page() {
 
             <div className="flex">
               <div className="w-full">
-                <label
-             
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                <label className="block text-sm font-medium leading-6 text-gray-900">
                   Category
                 </label>
                 <div className="mt-2">
@@ -143,17 +135,15 @@ async function page() {
                     autoComplete="country-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    {categories.map((category, key) => (
-                      <option key={key}>{category.name}</option>
-                    ))}
+                    {categories.length > 0 &&
+                      categories.map((category, key) => (
+                        <option key={key}>{category?.name}</option>
+                      ))}
                   </select>
                 </div>
               </div>
               <div className="w-full">
-                <label
-             
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                <label className="block text-sm font-medium leading-6 text-gray-900">
                   Author
                 </label>
                 <div className="mt-2">

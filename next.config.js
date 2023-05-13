@@ -8,6 +8,9 @@ const nextConfig = {
     config.experiments = { ...config.experiments, topLevelAwait: true };
     return config;
   },
+  env:{
+    baseUrl:"http://localhost:3000"
+  }
 };
 
 module.exports = nextConfig;

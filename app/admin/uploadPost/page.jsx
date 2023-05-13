@@ -6,7 +6,7 @@ import React, { useState } from "react";
 async function page() {
   const [htmlContent, setHtmlContent] = useState("");
   async function getCategories() {
-    const res = await fetch(`/api/category`);
+    const res = await fetch(`http://localhost:3000/api/category`);
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }

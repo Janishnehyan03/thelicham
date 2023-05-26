@@ -1,15 +1,25 @@
-import React from "react";
-import { Noto_Serif_Malayalam } from "next/font/google";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "@fortawesome/fontawesome-svg-core/styles.css";
+import { Noto_Serif_Malayalam } from "next/font/google";
+import Image from "next/image";
 
 const notoSansMalayalam = Noto_Serif_Malayalam({ subsets: ["latin"] });
+export const metadata = {
+  title: "Thelicham Monthly",
+};
 
+// or Dynamic metadata
+export async function generateMetadata({ params }) {
+  return {
+    title: `${decodeURIComponent(params.name)} | Thelicham Monthly`,
+    
+  };
+}
 export default async function RepoPage({ params: { name } }) {
   const data = [
     {
-      title: "ഔലിയാപ്പേടി: ഭീതിയുടെ ഖുർആനിക തത്വവിചാരങ്ങൾ",
+      title: "വിയോജിപ്പ്: സമവായത്തിന്റെ ഇസ്ലാമിക സാധ്യതകൾ",
       author: "ഷമീർ കെ.എസ്",
       image:
         "https://plus.unsplash.com/premium_photo-1681406994502-bb673c265877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
@@ -55,14 +65,16 @@ export default async function RepoPage({ params: { name } }) {
                 #Articles
               </p>
               <h1
-                className={`text-4xl font-bold leading-tight md:text-5xl ${notoSansMalayalam.className}`}
+                className={`text-4xl font-bold text-red-800 leading-tight md:text-5xl ${notoSansMalayalam.className}`}
               >
                 വിയോജിപ്പ്: സമവായത്തിന്റെ ഇസ്ലാമിക സാധ്യതകൾ
               </h1>
-              <img
+              <Image
                 src="https://plus.unsplash.com/premium_photo-1681406994502-bb673c265877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-                alt=""
+                alt={"title"}
                 className="w-full rounded-[20px]"
+                height={400}
+                width={400}
               />
               <p className="text-sm dark:text-gray-400">
                 <FontAwesomeIcon icon={faPen} className="text-gray-500 mr-2" />
@@ -72,12 +84,10 @@ export default async function RepoPage({ params: { name } }) {
                   target="_blank"
                   className="underline dark:text-violet-400"
                 >
-                  <span itemprop="name" className="mr-3">
-                    Leroy Jenkins
-                  </span>
+                  <span className="mr-3">Leroy Jenkins</span>
                 </a>
               </p>
-              <time datetime="2021-02-12 15:34:18-0200">Feb 12th 2021</time>
+              <time>Feb 12th 2021</time>
             </div>
             <div
               className={`dark:text-gray-100 ${notoSansMalayalam.className}`}

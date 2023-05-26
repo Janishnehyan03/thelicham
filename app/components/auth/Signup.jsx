@@ -1,10 +1,11 @@
+"use client";
+import Link from "next/link";
+import { useState } from "react";
 
-export const metadata = {
-  title: "Admin Login Page | THELICHAM Monthly",
-  description: "THELICHAM MONTHLY- DARUL HUDA ISLAMIC UNIVERSITY",
-  keywords: "web development, web design, html, css",
-};
-function AdminLogin() {
+
+function SignUpPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   
   return (
     <div>
@@ -19,9 +20,9 @@ function AdminLogin() {
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Sign in to your account
+                Create your account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6" >
                 <div>
                   <label
                     htmlFor="email"
@@ -33,8 +34,28 @@ function AdminLogin() {
                     type="email"
                     name="email"
                     id="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                   Your username
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="username"
                     required
                   />
                 </div>
@@ -50,6 +71,8 @@ function AdminLogin() {
                     name="password"
                     id="password"
                     placeholder="••••••••"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
@@ -59,9 +82,17 @@ function AdminLogin() {
                   type="submit"
                   className="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 >
-                  Sign in
+                Register
                 </button>
-                
+                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Already have an account?{" "}
+                  <Link
+                    href="/auth/login"
+                    className="font-medium text-red-600 hover:underline dark:text-red-500"
+                  >
+                    Login
+                  </Link>
+                </p>
               </form>
             </div>
           </div>
@@ -71,4 +102,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default SignUpPage;

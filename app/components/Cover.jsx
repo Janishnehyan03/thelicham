@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import Image from "next/image";
 
 const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 function Cover() {
@@ -83,8 +84,6 @@ function Cover() {
         pagination={{ ...paginationOptions }}
         scrollbar={{ draggable: true }}
         slidesPerView={1}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         autoplay={{ delay: 3000 }}
         loop={true}
@@ -115,7 +114,13 @@ function Cover() {
                 </p>
               </div>
               <div className="lg:mt-0 lg:col-span-5 lg:flex ">
-                <img className="rounded-[20px]" src={item.image} alt="mockup" />
+                <Image
+                  height={400}
+                  width={400}
+                  className="rounded-[20px]"
+                  src={item.image}
+                  alt="mockup"
+                />
               </div>
             </div>
           </SwiperSlide>

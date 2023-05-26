@@ -1,11 +1,29 @@
-import React from "react";
+"use client";
+import Axios from "@/utils/Axios";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export const metadata = {
-  title: "THELICHAM MONTHLY | Login Page",
-  description: "THELICHAM MONTHLY- DARUL HUDA ISLAMIC UNIVERSITY",
-  keywords: "web development, web design, html, css",
-};
 function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const router = useRouter();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      let res = await Axios.post("/auth/login", { email, password });
+      if (res.status === 200) {
+        setEmail("");
+        setPassword("");
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error.response);
+      setError(error.response.data.error);
+    }
+  };
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -21,8 +39,9 @@ function LoginPage() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6">
                 <div>
+                  <p className="text-red-600 font-semibold text-center">{error && error}</p>
                   <label
                     htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -33,6 +52,8 @@ function LoginPage() {
                     type="email"
                     name="email"
                     id="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
                     required
@@ -50,25 +71,28 @@ function LoginPage() {
                     name="password"
                     id="password"
                     placeholder="••••••••"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
                 </div>
-              
+
                 <button
                   type="submit"
+                  onClick={(e) => handleLogin(e)}
                   className="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 >
                   Sign in
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
-                  <a
-                    href="#"
+                  <Link
+                    href="/auth/register"
                     className="font-medium text-red-600 hover:underline dark:text-red-500"
                   >
-                    Sign up
-                  </a>
+                    Register
+                  </Link>
                 </p>
               </form>
             </div>

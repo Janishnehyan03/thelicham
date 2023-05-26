@@ -1,17 +1,16 @@
-import { Schema, model, models } from "mongoose";
+const mongoose = require("mongoose");
 
 // Define the category schema
-const categorySchema = new Schema({
+const categorySchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, "Name is required"],
     unique: [true, "This name is already in use"],
     uppercase: true,
   },
+  subCategories: [{ type: String }],
 });
 
 // Create the category model
-const Category = models.Category || model("Category", categorySchema);
-
-// Export the model
-export default Category;
+const Category = mongoose.model("Category", categorySchema);
+module.exports = Category;

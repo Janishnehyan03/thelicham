@@ -1,13 +1,14 @@
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Anek_Malayalam } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 
 function Latest() {
   const data = [
     {
-      title: "ഔലിയാപ്പേടി: ഭീതിയുടെ ഖുർആനിക തത്വവിചാരങ്ങൾ",
+      title: "വിയോജിപ്പ്: സമവായത്തിന്റെ ഇസ്ലാമിക സാധ്യതകൾ",
       author: "ഷമീർ കെ.എസ്",
       image:
         "https://plus.unsplash.com/premium_photo-1681406994502-bb673c265877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
@@ -71,9 +72,18 @@ function Latest() {
         </div>
         <div className="grid gap-8 lg:grid-cols-3">
           {data.map((item, key) => (
-            <div className="max-w-sm bg-white border hover:bg-gray-100 group border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div
+              key={key}
+              className="max-w-sm bg-white border hover:bg-gray-100 group border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            >
               <Link href={`/posts/${item.title}`}>
-                <img className="rounded-t-lg" src={item.image} alt />
+                <Image
+                  className="rounded-t-lg"
+                  src={item.image}
+                  alt={item.title}
+                  width={400}
+                  height={400}
+                />
               </Link>
 
               <div className="p-5">

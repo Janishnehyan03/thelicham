@@ -4,11 +4,22 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@700&display=swap");
 @font-face {
-    font-family: 'Noto Sans Malayalam';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Noto Sans Malayalam'), local('NotoSansMalayalam-Regular'), url('https://fonts.gstatic.com/s/notosansmalayalam/v29/KFOmCnqEu92Fr1Mu4mxP.woff2') format('woff2');
-  }
-.heading-1 {
-    font-family: 'Noto Sans Malayalam', sans-serif;
+  font-family: "Noto Sans Malayalam";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Noto Sans Malayalam"), local("NotoSansMalayalam-Regular"),
+    url("https://fonts.gstatic.com/s/notosansmalayalam/v29/KFOmCnqEu92Fr1Mu4mxP.woff2")
+      format("woff2");
+}
+
+/* styles/malayalam-font.css */
+@font-face {
+  font-family: "MalayalamFont";
+  src: url("/public/fonts/NotoSerifMalayalam-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Noto Serif Malayalam', serif;
 }

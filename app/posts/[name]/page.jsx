@@ -5,9 +5,9 @@ import { Noto_Serif_Malayalam } from "next/font/google";
 import Image from "next/image";
 
 const notoSansMalayalam = Noto_Serif_Malayalam({ subsets: ["latin"] });
-export const metadata = {
-  title: "Thelicham Monthly",
-};
+// export const metadata = {
+//   title: "Thelicham Monthly",
+// };
 
 // or Dynamic metadata
 export async function generateMetadata({ params }) {

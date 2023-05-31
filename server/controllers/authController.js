@@ -74,6 +74,7 @@ exports.login = async (req, res, next) => {
           httpOnly: true,
           maxAge: decoded.exp,
         });
+        
         res.status(200).json({
           user,
           token,

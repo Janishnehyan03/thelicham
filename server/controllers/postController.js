@@ -12,7 +12,7 @@ exports.createPost = async (req, res, next) => {
       description,
       detailHtml,
       author,
-      category,
+      categories,
       thumbnail,
       slug,
     } = req.body;
@@ -21,7 +21,7 @@ exports.createPost = async (req, res, next) => {
       !description ||
       !detailHtml ||
       !author ||
-      !category ||
+      !categories ||
       !slug ||
       !thumbnail
     ) {
@@ -32,7 +32,7 @@ exports.createPost = async (req, res, next) => {
       description,
       detailHtml,
       author,
-      category,
+      categories,
       thumbnail: "image",
       slug: slugify(slug),
     });
@@ -47,7 +47,7 @@ exports.createPost = async (req, res, next) => {
 exports.getAllPosts = async (req, res, next) => {
   try {
     const { sort, limit } = req.query;
-    let query = Post.find().populate("category").populate("author");
+    let query = Post.find().populate("categories").populate("author");
 
     if (sort) {
       query = query.sort(sort);
@@ -77,9 +77,9 @@ exports.getPostsByCategoryName = async (req, res, next) => {
     } else {
       // Find posts that have the matching category ObjectId
       const posts = await Post.find({
-        category: new mongoose.Types.ObjectId(category._id),
+        categories: new mongoose.Types.ObjectId(category._id),
       })
-        .populate("category")
+        .populate("categories")
         .populate("author")
         .exec();
       res.status(200).json({ results: posts.length, posts });

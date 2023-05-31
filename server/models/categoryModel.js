@@ -8,7 +8,6 @@ const categorySchema = mongoose.Schema({
     unique: [true, "This name is already in use"],
     uppercase: true,
   },
-  subCategories: [{ type: String }],
 });
 
 // Create the category model

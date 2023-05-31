@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 
-
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 const categoryRoute = require("./routes/categoryRoute");
@@ -33,7 +32,8 @@ mongoose
 // Set up CORS
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(morgan("dev"));
 // routes
 app.use("/api/v1/users", userRoute);
@@ -49,5 +49,5 @@ app.use((error, req, res, next) => {
   handleMongoError(error, res);
 });
 app.listen(process.env.PORT || 5000, () => {
-  console.log("App is listening on port 3000");
+  console.log("App is listening on port " + process.env.PORT);
 });

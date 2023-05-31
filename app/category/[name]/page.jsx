@@ -1,7 +1,6 @@
-import React from "react";
+import Categories from "@/app/components/Categories";
 
 function page() {
-  return <div>Articles</div>;
+  return <Categories />;
 }
-
 export default page;

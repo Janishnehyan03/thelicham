@@ -1,10 +1,9 @@
 "use client";
 import Axios from "@/utils/Axios";
 import { useUserContext } from "@/utils/userContext";
-import React, { useState, useEffect } from "react";
-import HtmlEditor from "../HtmlEditor";
 import { useRouter } from "next/navigation";
-import slugify from "slugify";
+import { useEffect, useState } from "react";
+import HtmlEditor from "../HtmlEditor";
 
 function PostUpload() {
   const { getMe } = useUserContext();
@@ -37,7 +36,7 @@ function PostUpload() {
     title: "",
     description: "",
     author: "",
-    category: "",
+    categories: [""],
     thumbnail: "image",
     detailHtml: "",
     slug: "",
@@ -179,7 +178,7 @@ function PostUpload() {
                 <div className="mt-2">
                   <select
                     id="country"
-                    name="category"
+                    name="categories"
                     onChange={(e) => handleInputChange(e)}
                     autoComplete="country-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"

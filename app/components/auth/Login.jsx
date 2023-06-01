@@ -15,13 +15,14 @@ function LoginPage() {
     try {
       let res = await Axios.post("/auth/login", { email, password });
       if (res.status === 200) {
+        console.log(res.data);
         setEmail("");
         setPassword("");
-        router.push("/");
+        // router.push("/");
       }
     } catch (error) {
       console.log(error.response);
-      setError(error.response.data.error);
+      setError(error.response);
     }
   };
   return (

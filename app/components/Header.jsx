@@ -155,7 +155,7 @@ function Header() {
                   className="block py-2 group pl-3 relative pr-4 text-red-600 rounded   transition  md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   My Account
-                  <span class="opacity-0 group-hover:opacity-100 absolute right-[10px] top-9 transition bg-gray-900 text-white px-2 py-1 rounded-md">
+                  <span className="opacity-0 group-hover:opacity-100 absolute right-[10px] top-9 transition bg-gray-900 text-white px-2 py-1 rounded-md">
                     {user?.username}
                   </span>
                 </Link>

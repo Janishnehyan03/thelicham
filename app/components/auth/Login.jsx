@@ -1,5 +1,7 @@
 "use client";
 import Axios from "@/utils/Axios";
+import { useUserContext } from "@/utils/userContext";
+import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -8,6 +10,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { setUser } = useUserContext();
   const router = useRouter();
 
   const handleLogin = async (e) => {
@@ -15,10 +18,12 @@ function LoginPage() {
     try {
       let res = await Axios.post("/auth/login", { email, password });
       if (res.status === 200) {
-        console.log(res.data);
+        setCookie("login_token", res.data.token);
+        localStorage.setItem("loggedIn", true);
+        setUser(res.data.user);
         setEmail("");
         setPassword("");
-        // router.push("/");
+        router.push("/");
       }
     } catch (error) {
       console.log(error.response);
@@ -42,7 +47,9 @@ function LoginPage() {
               </h1>
               <form className="space-y-4 md:space-y-6">
                 <div>
-                  <p className="text-red-600 font-semibold text-center">{error && error}</p>
+                  <p className="text-red-600 font-semibold text-center">
+                    {error && error}
+                  </p>
                   <label
                     htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

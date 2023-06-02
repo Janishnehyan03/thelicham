@@ -70,7 +70,7 @@ function Cover() {
     clickable: true,
     renderBullet: function (index, className) {
       return `
-        <span class="${className}" style="background-color: ${
+        <span className="${className}" style="background-color: ${
         index === this.realIndex ? "#FF0000" : "#CCCCCC"
       }"></span>
       `;
@@ -89,7 +89,7 @@ function Cover() {
         loop={true}
       >
         {data.map((item, key) => (
-          <SwiperSlide>
+          <SwiperSlide key={key}>
             <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
               <div className="mr-auto place-self-center lg:col-span-7">
                 <h1

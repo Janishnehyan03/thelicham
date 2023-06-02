@@ -281,7 +281,7 @@ export default async function RepoPage({ params: { name } }) {
             </h2>
             <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
               {data.map((item, key) => (
-                <article className="max-w-xs">
+                <article key={key} className="max-w-xs">
                   <a href="#">
                     <img
                       src={item.image}

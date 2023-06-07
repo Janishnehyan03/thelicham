@@ -7,26 +7,19 @@ import draftToHtml from "draftjs-to-html";
 const Editor = dynamic(() => import('react-draft-wysiwyg').then((mod) => mod.Editor), { ssr: false });
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-export default function Index(
-  {setHtml}
-) {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  console.log(editorState);
-  const [text, setText] = useState();
-  const onEditorStateChange = function (editorState) {
-    setEditorState(editorState);
-    const { blocks } = convertToRaw(editorState.getCurrentContent());
-    let text = editorState.getCurrentContent().getPlainText("\u0001");
-    setText(text);
-    let convertedHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-    setHtml(convertedHtml);
-  };
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Access the window object here
-      window.scrollTo(0, 0);
-    }
-  }, []);
+  const [formats] = useState([
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "image",
+  ]);
+
   return (
     <>
       {/*<div>{draftToHtml(convertToRaw(editorState.getCurrentContent()))}</div>*/}
@@ -56,4 +49,5 @@ export default function Index(
       )}
     </>
   );
-}
+
+export default HtmlEditor

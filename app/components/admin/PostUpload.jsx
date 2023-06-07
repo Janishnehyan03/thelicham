@@ -10,13 +10,14 @@ function PostUpload() {
   const router = useRouter();
 
   const [htmlContent, setHtmlContent] = useState("");
+  const [html, setHtml] = useState("");
   const [categories, setCategories] = useState([]);
   const [authors, setAuthors] = useState([]);
 
   async function getCategories() {
     try {
       const res = await Axios.get(`/category`);
-      setCategories(res.data);
+      setCategories(res.data.data);
     } catch (error) {
       console.log(error.response);
     }
@@ -53,12 +54,12 @@ function PostUpload() {
 
     Axios.post("/post", {
       ...formData,
-      detailHtml: htmlContent,
+      detailHtml: html,
     })
       .then((response) => {
         if (response.status === 200) {
           setFormData(initialValue);
-          setHtmlContent("");
+          setHtml("");
           router.push("/");
         }
       })
@@ -219,7 +220,7 @@ function PostUpload() {
           </div>
         </div>
 
-        <HtmlEditor value={htmlContent} onChange={handleHtmlChange} />
+        <HtmlEditor setHtml={setHtml} />
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"

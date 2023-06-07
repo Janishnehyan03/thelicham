@@ -17,6 +17,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       let res = await Axios.post("/auth/login", { email, password });
+      console.log(res);
       if (res.status === 200) {
         setCookie("login_token", res.data.token);
         localStorage.setItem("loggedIn", true);
@@ -94,7 +95,7 @@ function LoginPage() {
                   Sign in
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet?{" "}
+                  Don’t have an account yet?
                   <Link
                     href="/auth/register"
                     className="font-medium text-red-600 hover:underline dark:text-red-500"

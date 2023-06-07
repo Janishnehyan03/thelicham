@@ -1,41 +1,58 @@
-'use client'
-import { useState } from "react";
-import 'react-quill/dist/quill.snow.css'
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+"use client";
+import { convertToRaw, EditorState } from "draft-js";
+import { useState ,useEffect} from "react";
+import dynamic from 'next/dynamic';
+import draftToHtml from "draftjs-to-html";
 
-function HtmlEditor({ value, onChange }) {
-  const [modules] = useState({
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
-      ["clean"],
-    ],
-  });
+const Editor = dynamic(() => import('react-draft-wysiwyg').then((mod) => mod.Editor), { ssr: false });
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-  const [formats] = useState([
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "link",
-    "image",
-  ]);
-
+export default function Index() {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [text, setText] = useState();
+  const onEditorStateChange = function (editorState) {
+    setEditorState(editorState);
+    const { blocks } = convertToRaw(editorState.getCurrentContent());
+    /*let text = blocks.reduce((acc, item) => {
+      acc = acc + item.text;
+      return acc;
+    }, "");*/
+    let text = editorState.getCurrentContent().getPlainText("\u0001");
+    setText(text);
+  };
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Access the window object here
+      window.scrollTo(0, 0);
+    }
+  }, []);
   return (
-    <ReactQuill
-      theme="snow"
-      value={value}
-      onChange={onChange}
-      modules={modules}
-      formats={formats}
-    />
+    <>
+      {/*<div>{draftToHtml(convertToRaw(editorState.getCurrentContent()))}</div>*/}
+      {<div style={{ height: "80px", overflow: "auto" }}>{text}</div>}
+      {typeof window !== 'undefined' && (
+        <Editor
+          editorState={editorState}
+          toolbarClassName="toolbarClassName"
+          wrapperClassName="wrapperClassName"
+          editorClassName="editorClassName"
+          onEditorStateChange={onEditorStateChange}
+          mention={{
+            separator: " ",
+            trigger: "@",
+            suggestions: [
+              { text: "APPLE", value: "apple" },
+              { text: "BANANA", value: "banana", url: "banana" },
+              { text: "CHERRY", value: "cherry", url: "cherry" },
+              { text: "DURIAN", value: "durian", url: "durian" },
+              { text: "EGGFRUIT", value: "eggfruit", url: "eggfruit" },
+              { text: "FIG", value: "fig", url: "fig" },
+              { text: "GRAPEFRUIT", value: "grapefruit", url: "grapefruit" },
+              { text: "HONEYDEW", value: "honeydew", url: "honeydew" }
+            ]
+          }}
+        />
+      )}
+    </>
   );
 }
-export default HtmlEditor

@@ -5,9 +5,11 @@ import Head from "next/head";
 import Cover from "./components/Cover";
 import Latest from "./components/Latest";
 import TopPosts from "./components/TopPosts";
+import { Anek_Malayalam } from "next/font/google";
+
+const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 
 export default function Home() {
-
   return (
     <>
       <UserContextProvider>
@@ -19,6 +21,7 @@ export default function Home() {
             rel="stylesheet"
           />
         </Head>
+        
         <Cover />
         <Latest />
         <TopPosts />

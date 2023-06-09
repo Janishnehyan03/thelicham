@@ -17,11 +17,11 @@ function Header() {
   }, []);
   return (
     <nav
-      className={`bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 mt-7 ${
+      className={`bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 mt-10 ${
         isOpen ? "h-screen" : ""
       }`}
     >
-      <div className="max-w-screen-xl flex flex-col	flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex flex-col	flex-wrap items-center justify-between mx-auto p-4 ">
         <Link href="#" className="flex items-center">
           <img
             src="/images/logo.jpg"
@@ -57,25 +57,25 @@ function Header() {
           id="navbar-dropdown"
           className={`${isOpen ? "block" : "hidden"} w-full md:block md:w-auto mt-5`}
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex flex-col font-medium items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <Link
-                href="/category/article"
+                href="/category/society"
                 className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${
                   route === "/article" ? "text-red-600" : "text-gray-900"
                 }`}
               >
-                Article
+                Society
               </Link>
             </li>
             <li>
               <Link
-                href="/category/essay"
+                href="/category/culture"
                 className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${
                   route === "/essay" ? "text-red-600" : "text-gray-900"
                 }`}
               >
-                Essay
+                Culture
               </Link>
             </li>
             <li>
@@ -90,29 +90,19 @@ function Header() {
             </li>
             <li>
               <Link
-                href="/category/review"
+                href="/category/discussions"
                 className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${
                   route === "/review" ? "text-red-600" : "text-gray-900"
                 }`}
               >
-                Review
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/category/interview"
-                className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${
-                  route === "/interview" ? "text-red-600" : "text-gray-900"
-                }`}
-              >
-                Interview
+                Discussions
               </Link>
             </li>
             <li>
               <Link
                 href="/category/series"
                 className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${
-                  route === "/series" ? "text-red-600" : "text-gray-900"
+                  route === "/interview" ? "text-red-600" : "text-gray-900"
                 }`}
               >
                 Series
@@ -120,32 +110,21 @@ function Header() {
             </li>
             <li>
               <Link
-                href="/category/distributors"
+                href="/category/about"
                 className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${
-                  route === "/distributors" ? "text-red-600" : "text-gray-900"
-                }`}
-              >
-                Distributors
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/about-us"
-                className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${
-                  route === "/about" ? "text-red-600" : "text-gray-900"
+                  route === "/series" ? "text-red-600" : "text-gray-900"
                 }`}
               >
                 About Us
               </Link>
             </li>
-            <li>
+
+                        <li>
               <Link
-                href="/contact-us"
-                className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${
-                  route === "/contact" ? "text-red-600" : "text-gray-900"
-                }`}
+                href="/subscribe"
+                className="block py-2 pl-3 pr-4 rounded bg-red-900 text-white transition md:border-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                Contact Us
+                Subscribe
               </Link>
             </li>
             <li>
@@ -162,9 +141,10 @@ function Header() {
               ) : (
                 <Link
                   href="/auth/login"
-                  className="block py-2 pl-3 pr-4  rounded   transition  md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="flex py-2 pl-3 pr-4  rounded   transition  md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
-                  Login
+                <img src="/icons/user.svg"
+alt="login icon " className="mr-1" />                Login
                 </Link>
               )}
             </li>

@@ -25,3 +25,7 @@
   font-weight: normal;
   font-style: normal;
 }
+/* Add this CSS to your stylesheet */
+.swiper-pagination-bullet-active {
+  background-color: #7f1d1d !important;
+}

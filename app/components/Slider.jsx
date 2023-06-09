@@ -10,7 +10,7 @@ import data from "@/public/dummydata.json"
 import Image from "next/image";
 
 const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
-function Cover() {
+function Slider() {
 
   const paginationOptions = {
     clickable: true,
@@ -76,4 +76,4 @@ function Cover() {
   );
 }
 
-export default Cover;
+export default Slider;

@@ -33,7 +33,7 @@ async function AdminSidebar() {
         </Link>
         <Link
           className="flex items-center px-6 py-2 text-gray-500 hover:bg-gray-700 hover:text-white"
-          href="/admin/create-author"
+          href="/admin/author"
         >
           <FontAwesomeIcon icon={faUser} className="h-6 mr-2" />
           New Author

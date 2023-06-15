@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
 
+const Editor = dynamic(
+  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
+  { ssr: false }
+);
 const HtmlEditor = ({ setHtml }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const Editor = dynamic(
-    () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-    { ssr: false }
-  );
   useEffect(() => {
     setHtml(draftToHtml(convertToRaw(editorState.getCurrentContent())));
   }, [editorState]);
@@ -21,10 +21,6 @@ const HtmlEditor = ({ setHtml }) => {
         <Editor
           editorState={editorState}
           onEditorStateChange={setEditorState}
-          toolbarClassName="toolbarClassName"
-          wrapperClassName="wrapperClassName"
-          editorClassName="editorClassName"
-          placeholder="Enter your content here"
         />
       )}
     </>

@@ -6,10 +6,10 @@ const notoSansMalayalam = Noto_Serif_Malayalam({ subsets: ["latin"] });
 
 function Cover() {
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-white">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-          <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold hover:text-black text-red-900 dark:text-white">
+          <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold hover:text-black text-red-900">
             Cover
           </h2>
         </div>
@@ -27,12 +27,12 @@ function Cover() {
                   ></div>
                 </a>
                 <div className="details ml-4">
-                  <h2 className="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                  <h2 className="mb-2 text-xl font-bold leading-tight text-gray-900 ">
                     <a href="#" className={notoSansMalayalam.className}>
                       {item.title}
                     </a>
                   </h2>
-                  <p className="font-light text-gray-500 dark:text-gray-400">
+                  <p className="font-light text-gray-500 ">
                     {item.author}
                   </p>
                 </div>

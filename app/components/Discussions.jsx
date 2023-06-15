@@ -10,7 +10,7 @@ const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 function Discussions() {
 
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-white ">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
           <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold hover:text-black text-red-900 dark:text-white">
@@ -21,7 +21,7 @@ function Discussions() {
           {data.map((item, key) => (
             <div
               key={key}
-              className="max-w-sm bg-white border hover:bg-gray-100 group border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              className="max-w-sm bg-white border hover:bg-gray-100 group border-gray-200 rounded-lg shadow  "
             >
               <Link href={`/posts/${item.title}`}>
                 <Image

@@ -1,5 +1,5 @@
-import PostUpload from '@/app/components/admin/PostUpload'
-import React from 'react'
+import PostUpload from "@/app/components/admin/PostUpload";
+import React from "react";
 
 export const metadata = {
   title: "Upload Post | THELICHAM MONTHLY",
@@ -9,8 +9,10 @@ export const metadata = {
 
 function page() {
   return (
-    <PostUpload/>
-  )
+    <>
+      <PostUpload />
+    </>
+  );
 }
 
-export default page
+export default page;

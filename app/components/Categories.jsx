@@ -9,16 +9,16 @@ function Categories() {
   const name = params.name;
   return (
     <div>
-      <section className="bg-white dark:bg-gray-900">
+      <section className="bg-white ">
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-            <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-red-900 hover:text-black dark:text-white">
+            <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-red-900 hover:text-black ">
               {name.toUpperCase()}
             </h2>
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
             {data.map((item, key) => (
-              <article key={key} className="p-6 group hover:cursor-pointer bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+              <article key={key} className="p-6 group hover:cursor-pointer bg-white rounded-lg border border-gray-200 shadow-md  ">
                 <div className="flex  justify-between items-center mb-5 text-gray-500">
                   <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                     <svg
@@ -33,7 +33,7 @@ function Categories() {
                   </span>
                   <span className="text-sm">14 days ago</span>
                 </div>
-                <h2 className="mb-2 text-2xl font-bold tracking-tight text-red-900 transition group-hover:text-red-400 dark:text-white">
+                <h2 className="mb-2 text-2xl font-bold tracking-tight text-red-900 transition group-hover:text-red-400 ">
                   <a href="#" className={notoSansMalayalam.className}>
                     {item.title}
                   </a>
@@ -48,7 +48,7 @@ function Categories() {
                       src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                       alt="Jese Leos avatar"
                     />
-                    <span className="font-medium dark:text-white">
+                    <span className="font-medium ">
                       Jese Leos
                     </span>
                   </div>

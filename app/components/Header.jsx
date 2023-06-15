@@ -16,27 +16,12 @@ function Header() {
     getMe();
   }, []);
   return (
-    <nav
-      className={`bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 mt-10 ${
-        isOpen ? "h-screen" : ""
-      }`}
-    >
-      <div className="max-w-screen-xl flex flex-col	flex-wrap items-center justify-between mx-auto p-4 ">
-        <Link href="#" className="flex items-center">
-          <img
-            src="/images/logo.jpg"
-            className="lg:h-20 h-16 mr-3"
-            alt="Thelicham Logo"
-          />
-        </Link>
-        <button
-          data-collapse-toggle="navbar-dropdown"
-          type="button"
-          className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-dropdown"
-          // aria-expanded="false"
-          onClick={toggleMenu}
-          aria-expanded={isOpen}
+    <>
+      {!route.startsWith("/admin") && (
+        <nav
+          className={`bg-white border-gray-200   mt-10 ${
+            isOpen ? "h-screen" : ""
+          }`}
         >
           <span className="sr-only">Open main menu</span>
           <svg

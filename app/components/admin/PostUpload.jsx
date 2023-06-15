@@ -9,6 +9,7 @@ function PostUpload() {
   const { getMe } = useUserContext();
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
   const [htmlContent, setHtmlContent] = useState("");
   const [html, setHtml] = useState("");
   const [categories, setCategories] = useState([]);
@@ -30,9 +31,7 @@ function PostUpload() {
       console.log(error.response);
     }
   }
-  const handleHtmlChange = (value) => {
-    setHtmlContent(value);
-  };
+
   const initialValue = {
     title: "",
     description: "",
@@ -51,7 +50,7 @@ function PostUpload() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     Axios.post("/post", {
       ...formData,
       detailHtml: html,
@@ -60,11 +59,13 @@ function PostUpload() {
         if (response.status === 200) {
           setFormData(initialValue);
           setHtml("");
+          setLoading(false);
           router.push("/");
         }
       })
       .catch((error) => {
         // Handle errors.
+        setLoading(false);
         console.log(error.response);
       });
   };
@@ -91,7 +92,7 @@ function PostUpload() {
 
           <div className="mt-10">
             <div>
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label className="block text-sm font-medium uppercase my-3 leading-6 text-gray-900">
                 Post Title
               </label>
               <div className="mt-2">
@@ -102,13 +103,13 @@ function PostUpload() {
                   onChange={(e) => handleInputChange(e)}
                   value={formData.title}
                   autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label className="block text-sm font-medium uppercase my-3 leading-6 text-gray-900">
                 Description
               </label>
               <div className="mt-2">
@@ -119,12 +120,12 @@ function PostUpload() {
                   onChange={(e) => handleInputChange(e)}
                   autoComplete="given-name"
                   value={formData.description}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label className="block text-sm font-medium uppercase my-3 leading-6 text-gray-900">
                 Slug
               </label>
               <div className="mt-2">
@@ -137,20 +138,17 @@ function PostUpload() {
                   onChange={(e) => {
                     handleInputChange(e);
                   }}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div className="col-span-full">
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label className="block text-sm font-medium uppercase my-3 leading-6 text-gray-900">
                 Cover photo
               </label>
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                 <div className="text-center">
-                  <photoicon
-                    className="mx-auto h-12 w-12 text-gray-300"
-                    aria-hidden="true"
-                  >
+                  
                     <div className="mt-4 flex text-sm leading-6 text-gray-600">
                       <label className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                         <span>Upload a file</span>
@@ -166,14 +164,13 @@ function PostUpload() {
                     <p className="text-xs leading-5 text-gray-600">
                       PNG, JPG, GIF up to 10MB
                     </p>
-                  </photoicon>
                 </div>
               </div>
             </div>
 
             <div className="flex">
               <div className="w-full">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
+                <label className="block text-sm font-medium uppercase my-3  leading-6 text-gray-900">
                   Category
                 </label>
                 <div className="mt-2">
@@ -182,12 +179,12 @@ function PostUpload() {
                     name="categories"
                     onChange={(e) => handleInputChange(e)}
                     autoComplete="country-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option hidden>Select Category</option>
+                    <option  hidden>Select Category</option>
                     {categories.length > 0 &&
                       categories.map((category, key) => (
-                        <option value={category._id} key={key}>
+                        <option  value={category._id} key={key}>
                           {category?.name}
                         </option>
                       ))}
@@ -195,7 +192,7 @@ function PostUpload() {
                 </div>
               </div>
               <div className="w-full">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
+                <label className="block text-sm font-medium uppercase my-3 leading-6 text-gray-900">
                   Author
                 </label>
                 <div className="mt-2">
@@ -204,7 +201,7 @@ function PostUpload() {
                     name="author"
                     autoComplete="country-name"
                     onChange={(e) => handleInputChange(e)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option hidden>Select Author</option>
                     {authors.length > 0 &&
@@ -228,13 +225,22 @@ function PostUpload() {
           >
             Cancel
           </button>
-          <button
-            type="submit"
-            onClick={(e) => handleSubmit(e)}
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Save
-          </button>
+          {loading ? (
+            <button
+              type="submit"
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Processing...
+            </button>
+          ) : (
+            <button
+              type="submit"
+              onClick={(e) => handleSubmit(e)}
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Save
+            </button>
+          )}
         </div>
       </form>
     </div>

@@ -23,7 +23,7 @@ function Slider() {
     },
   };
   return (
-    <section className="bg-white dark:bg-gray-900 my-10">
+    <section className="bg-white  my-10">
       <Swiper
         spaceBetween={50}
         navigation

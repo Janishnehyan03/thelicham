@@ -1,3 +1,4 @@
+"use client";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment/moment";
@@ -7,6 +8,12 @@ import React from "react";
 function AuthorList({ authors }) {
   return (
     <div className="relative overflow-x-auto rounded-lg">
+      <Link
+        href={`/admin/author/add`}
+        className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+      >
+        Create New
+      </Link>
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>

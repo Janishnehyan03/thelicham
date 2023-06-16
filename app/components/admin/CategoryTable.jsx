@@ -14,10 +14,10 @@ function CategoryTable({ categories, getCategories }) {
               Category Name
             </th>
             <th scope="col" className="px-6 py-3">
-              Sub Categories
+              Created
             </th>
             <th scope="col" className="px-6 py-3">
-              Created
+              Sub Categories
             </th>
 
             <th scope="col" className="px-6 py-3">
@@ -31,7 +31,7 @@ function CategoryTable({ categories, getCategories }) {
         <tbody>
           {categories.length > 0 &&
             categories.map((category, index) => (
-              <tr key={index} className="bg-white dark:bg-gray-800">
+              <tr key={index} className="bg-white border-2">
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -42,11 +42,16 @@ function CategoryTable({ categories, getCategories }) {
                   {moment(category.createdAt).format("DD/MM/yyyy")}
                 </td>
                 <td className="px-6 py-4">
-                  {category.subCategories.map((item, ind) => (
-                    <p key={ind} className="bg-gray-300 text-center p-2 rounded">
-                      {item.name}
-                    </p>
-                  ))}
+                  <div className="grid grid-cols-3">
+                    {category.subCategories.map((item, ind) => (
+                      <p
+                        key={ind}
+                        className="bg-gray-500 m-2 p-2 rounded-[20px] text-white text-center"
+                      >
+                        {item.name}
+                      </p>
+                    ))}
+                  </div>
                 </td>
                 <td className="px-6 py-4">
                   <Link href={`/admin/edit-post/`}>

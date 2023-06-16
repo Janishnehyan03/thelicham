@@ -6,28 +6,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-import data from "@/public/dummydata.json"
+import data from "@/public/dummydata.json";
 import Image from "next/image";
 
 const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 function Slider() {
-
-  const paginationOptions = {
-    clickable: true,
-    renderBullet: function (index, className) {
-      return `
-        <span className="${className}" style="background-color: ${
-        index === this.realIndex ? "#FF0000" : "#CCCCCC"
-      }"></span>
-      `;
-    },
-  };
   return (
     <section className="bg-white  my-10">
       <Swiper
         spaceBetween={50}
         navigation
-        pagination={{ clickable: true, dynamicBullets: true, dynamicMainBullets: 3 }}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
+          dynamicMainBullets: 3,
+        }}
         scrollbar={{ draggable: true }}
         slidesPerView={1}
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
@@ -63,7 +56,7 @@ function Slider() {
                 <Image
                   height={400}
                   width={400}
-                  className="rounded-[20px]"
+                  className="rounded-[10px]"
                   src={item.image}
                   alt="mockup"
                 />

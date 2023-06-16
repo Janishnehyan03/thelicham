@@ -2,6 +2,7 @@
 import Axios from "@/utils/Axios";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from "moment";
 import { Anek_Malayalam } from "next/font/google";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -39,17 +40,30 @@ function TopPosts() {
                   className="p-6 group hover:cursor-pointer bg-white rounded-lg border border-gray-200 shadow-md  "
                 >
                   <div className="flex  justify-between items-center mb-5 text-gray-500">
-                    <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                      Tutorial
+                    <div>
+                      {item.categories.map((category, ind) => (
+                        <span
+                          key={ind}
+                          className="bg-gray-300 text-primary-800 text-xs font-medium  items-center px-2 mr-2 py-1 rounded-[20px]"
+                        >
+                          #{category.name}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="text-sm">
+                      {moment
+                        .utc(item.createdAt)
+                        .local()
+                        .startOf("seconds")
+                        .fromNow()}
                     </span>
-                    <span className="text-sm">14 days ago</span>
                   </div>
                   <h2 className="mb-2 text-2xl font-bold tracking-tight text-red-900 transition group-hover:text-red-400 ">
                     <Link
                       href={`/posts/${item.slug}`}
                       className={notoSansMalayalam.className}
                     >
-                      {item.title}
+                       {item.title}
                     </Link>
                   </h2>
                   <p className={notoSansMalayalam.className}>
@@ -58,14 +72,14 @@ function TopPosts() {
                         ? "..."
                         : "")}
                   </p>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between mt-3 items-center">
                     <div className="flex items-center space-x-4">
                       <img
                         className="w-7 h-7 rounded-full"
                         src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                         alt="Jese Leos avatar"
                       />
-                      <span className="font-medium ">Jese Leos</span>
+                      <span className={notoSansMalayalam.className}>{item.author?.name}</span>
                     </div>
                     <Link
                       href={`/posts/${item.slug}`}

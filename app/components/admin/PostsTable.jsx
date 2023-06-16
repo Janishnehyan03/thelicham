@@ -43,7 +43,7 @@ function PostsTable({ posts }) {
                 </td>
                 <td className="px-6 py-4">
                   {post.categories.map((item, ind) => (
-                    <p className="bg-gray-300 text-center p-2 rounded">
+                    <p key={ind} className="bg-gray-600 text-white text-center p-2 rounded-[20px] m-2">
                       {item.name}
                     </p>
                   ))}

@@ -1,11 +1,14 @@
 import data from "@/public/dummydata.json";
 import Axios from "@/utils/Axios";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
+import { faPen, faTimeline, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from "moment";
 import { Noto_Serif_Malayalam } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 const notoSansMalayalam = Noto_Serif_Malayalam({ subsets: ["latin"] });
 
@@ -34,11 +37,15 @@ async function getData(name) {
     console.log(error.response);
   }
 }
-async function getBlogData() {
-  return { title: "About me" }; // Your blog content
-}
 export default async function RepoPage({ params: { name } }) {
   const post = await getData(name);
+  const wordsPerMinute = 200;
+
+  // Calculate the number of words based on character count
+  const wordCount = post.detailHtml.trim().split(/\s+/).length;
+
+  // Calculate the reading time in minutes
+  const readingTimeMinutes = Math.ceil(wordCount / wordsPerMinute);
   return (
     <>
       <Head>
@@ -48,10 +55,7 @@ export default async function RepoPage({ params: { name } }) {
       <div>
         <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
           <article className="max-w-3xl px-6 py-24 mx-auto space-y-12  ">
-            <div className="w-full mx-auto space-y-4 text-center">
-              <p className="text-xs font-semibold tracking-wider uppercase">
-                #Articles
-              </p>
+            <div className="w-full  mx-auto space-y-4 text-center">
               <h1
                 className={`text-4xl font-bold text-red-800 leading-tight md:text-5xl ${notoSansMalayalam.className}`}
               >
@@ -64,6 +68,15 @@ export default async function RepoPage({ params: { name } }) {
                 height={400}
                 width={400}
               />
+              <div className="flex justify-center flex-1 text-center">
+                {post.categories.map((item, key) => (
+                  <Link key={key} href={`/category/${item.name}`}>
+                    <p className="text-xs text-red-700 hover:text-red-300 font-semibold tracking-wider uppercase">
+                      #{item?.name} |
+                    </p>
+                  </Link>
+                ))}
+              </div>
               <p className="text-sm ">
                 <FontAwesomeIcon icon={faPen} className="text-gray-500 mr-2" />
                 <a
@@ -75,15 +88,21 @@ export default async function RepoPage({ params: { name } }) {
                   <span className="mr-3">{post.author?.name}</span>
                 </a>
               </p>
-              <time>Feb 12th 2021</time>
+              <div className="flex justify-around">
+                <p>
+                  <FontAwesomeIcon icon={faCalendar} className="h-4 " />{" "}
+                  {moment(post.createdAt).format("DD MMM YYYY")}
+                </p>
+                <p>
+                  <FontAwesomeIcon icon={faClock} className="h-4" />{" "}
+                  {readingTimeMinutes} Mins Read{" "}
+                </p>
+              </div>
             </div>
 
             <div className={notoSansMalayalam.className}>
               <div
                 className={`html-content`}
-                style={{
-                  color: "red",
-                }}
                 dangerouslySetInnerHTML={{
                   __html: `
                   <style>

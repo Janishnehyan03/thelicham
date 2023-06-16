@@ -1,24 +1,52 @@
 "use client";
 import { useParams } from "next/navigation";
 import { Anek_Malayalam } from "next/font/google";
-import data from "@/public/dummydata.json"
+import data from "@/public/dummydata.json";
+import Axios from "@/utils/Axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 
-function Categories() {
+async function Categories() {
   const params = useParams();
   const name = params.name;
+  const getCategory = async () => {
+    try {
+      let { data } = await Axios.get(`/category/name/${name}`);
+      return data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+  const category = await getCategory();
   return (
     <div>
       <section className="bg-white ">
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-          <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-            <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-red-900 hover:text-black ">
-              {name.toUpperCase()}
-            </h2>
+          <div className="mx-auto  text-start lg:mb-16 mb-8">
+            <h1 className="ml-2 font-bold text-red-700 text-2xl">
+              {name.toUpperCase()} /{" "}
+            </h1>
+            <div className="flex flex-wrap">
+              {category?.subCategories?.map((item, key) => (
+                <Link href={`/category/${item?.name}`}>
+                  <p
+                    className="mx-2 font-bold hover:text-red-900 hover:cursor-pointer"
+                    key={key}
+                  >
+                    {item.name} <span className="text-red-500">|</span>
+                  </p>
+                </Link>
+              ))}
+            </div>
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
             {data.map((item, key) => (
-              <article key={key} className="p-6 group hover:cursor-pointer bg-white rounded-lg border border-gray-200 shadow-md  ">
+              <article
+                key={key}
+                className="p-6 group hover:cursor-pointer bg-white rounded-lg border border-gray-200 shadow-md  "
+              >
                 <div className="flex  justify-between items-center mb-5 text-gray-500">
                   <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                     <svg
@@ -48,9 +76,7 @@ function Categories() {
                       src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                       alt="Jese Leos avatar"
                     />
-                    <span className="font-medium ">
-                      Jese Leos
-                    </span>
+                    <span className="font-medium ">Jese Leos</span>
                   </div>
                   <a
                     href="#"

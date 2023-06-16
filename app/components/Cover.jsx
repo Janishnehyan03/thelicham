@@ -1,8 +1,8 @@
-import { Noto_Serif_Malayalam } from "next/font/google";
 import data from "@/public/dummydata.json";
+import { Anek_Malayalam } from "next/font/google";
 import Image from "next/image";
 
-const notoSansMalayalam = Noto_Serif_Malayalam({ subsets: ["latin"] });
+const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 
 function Cover() {
   return (
@@ -15,7 +15,12 @@ function Cover() {
         </div>
 
         <div className="content flex items-center">
-          <Image src={"/cover.jpg"} width={"350"} height={"276"} />
+          <Image
+            src={"/cover.jpg"}
+            width={"350"}
+            style={{ borderRadius: 10 }}
+            height={"276"}
+          />
 
           <div className="sections flex flex-wrap justify-around">
             {data.map((item, key) => (
@@ -23,7 +28,10 @@ function Cover() {
                 <a href="#">
                   <div
                     className="img h-32 w-32 rounded-lg"
-                    style={{ background: `url(${item.image})`,backgroundSize:"cover" }}
+                    style={{
+                      background: `url(${item.image})`,
+                      backgroundSize: "cover",
+                    }}
                   ></div>
                 </a>
                 <div className="details ml-4">
@@ -32,7 +40,9 @@ function Cover() {
                       {item.title}
                     </a>
                   </h2>
-                  <p className="font-light text-gray-500 ">
+                  <p
+                    className={`${notoSansMalayalam.className} font-light text-gray-500 `}
+                  >
                     {item.author}
                   </p>
                 </div>

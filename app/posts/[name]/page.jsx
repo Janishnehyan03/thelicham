@@ -9,6 +9,7 @@ import { Noto_Serif_Malayalam } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import PostContent from "../PostContent";
 
 const notoSansMalayalam = Noto_Serif_Malayalam({ subsets: ["latin"] });
 
@@ -18,9 +19,7 @@ const notoSansMalayalam = Noto_Serif_Malayalam({ subsets: ["latin"] });
 //   };
 // }
 export async function generateMetadata({ params }) {
-  // read route params
-  const id = params.id;
-
+  
   // fetch data
   const { data } = await Axios.get(`/post/${params.name}`);
 
@@ -101,26 +100,7 @@ export default async function RepoPage({ params: { name } }) {
             </div>
 
             <div className={notoSansMalayalam.className}>
-              <div
-                className={`html-content`}
-                dangerouslySetInnerHTML={{
-                  __html: `
-                  <style>
-                  @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400&display=swap");
-                  p,
-                  span{
-                    font-family: 'Noto Serif Malayalam', serif !important;
-                    font-size:18px !important;
-                  }
-                  img{
-                    margin:14px 0 !important;
-                    border-radius:10px !important;
-                  }
-                  </style>
-                  ${post?.detailHtml}
-                `,
-                }}
-              ></div>
+              <PostContent details={post.detailHtml}/>
             </div>
             <div className="pt-12 border-t ">
               <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">

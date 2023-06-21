@@ -13,6 +13,11 @@
       format("woff2");
 }
 
+@media print {
+  .pdf-container {
+    display: none;
+  }
+}
 .html-content {
   font-family: 'Noto Serif Malayalam', serif;
 }

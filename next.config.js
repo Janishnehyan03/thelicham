@@ -1,10 +1,13 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     appDir: true,
   },
   webpack(config) {
-    config.experiments = { ...config.experiments, topLevelAwait: true };
+    config.module.rules.push({
+      test: /\.pdf$/,
+      use: "file-loader",
+    });
+
     return config;
   },
   env: {

@@ -1,18 +1,31 @@
 "use client";
+import Axios from "@/utils/Axios";
 import { useUserContext } from "@/utils/userContext";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { getMe, user } = useUserContext();
+  const [subscription, setSubscription] = useState(null);
+
   const route = usePathname();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  const getSubscribeData = async () => {
+    try {
+      let { data } = await Axios.get("/subscription");
+      console.log(data);
+      setSubscription(data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
   useEffect(() => {
     getMe();
+    getSubscribeData();
   }, []);
   return (
     <>
@@ -135,12 +148,21 @@ function Header() {
                 </li>
 
                 <li>
-                  <Link
-                    href="/subscribe"
-                    className="block py-2 pl-3 pr-4 rounded bg-red-900 text-white transition md:border-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  >
-                    Subscribe
-                  </Link>
+                  {subscription ? (
+                    <Link
+                      href="/plans"
+                      className="block py-2 pl-3 pr-4 rounded bg-red-900 text-white transition md:border-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      My Plans
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/subscribe"
+                      className="block py-2 pl-3 pr-4 rounded bg-red-900 text-white transition md:border-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Subscribe
+                    </Link>
+                  )}
                 </li>
                 <li>
                   {user ? (

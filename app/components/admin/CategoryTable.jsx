@@ -1,12 +1,32 @@
+import { useState } from "react";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment/moment";
 import Link from "next/link";
 import React from "react";
+import EditCategory from "./EditCategory";
 
 function CategoryTable({ categories, getCategories }) {
+  const [editPopupVisible, setEditPopupVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const openEditPopup = (category) => {
+    setSelectedCategory(category);
+    setEditPopupVisible(true);
+  };
+
+  const closeEditPopup = () => {
+    setEditPopupVisible(false);
+  };
+
   return (
     <div className="relative overflow-x-auto rounded-lg">
+      {editPopupVisible && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <EditCategory category={selectedCategory} onClose={closeEditPopup} />
+        </div>
+      )}
+
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -54,12 +74,11 @@ function CategoryTable({ categories, getCategories }) {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <Link href={`/admin/edit-post/`}>
-                    <FontAwesomeIcon
-                      icon={faEdit}
-                      className="h-4 text-blue-700"
-                    />
-                  </Link>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className="h-4 text-blue-700 cursor-pointer"
+                    onClick={() => openEditPopup(category)}
+                  />
                 </td>
                 <td className="px-6 py-4">
                   <FontAwesomeIcon

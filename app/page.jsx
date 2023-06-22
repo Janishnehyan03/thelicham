@@ -5,17 +5,30 @@ import Cover from "./components/Cover";
 import Discussions from "./components/Discussions";
 import Slider from "./components/Slider";
 import TopPosts from "./components/TopPosts";
-
+import Script from "next/script";
 
 export default function Home() {
   return (
     <>
       <UserContextProvider>
         <Slider />
-        <Cover/>
+        <Cover />
         <Discussions />
         <TopPosts />
       </UserContextProvider>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-QHE90ZERSN"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-QHE90ZERSN');
+        `}
+      </Script>
     </>
   );
 }

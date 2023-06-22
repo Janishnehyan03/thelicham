@@ -1,10 +1,6 @@
 import React from "react";
-// import PdfComponent from "../components/PdfComponent";
-import dynamic from "next/dynamic";
+import PdfComponent from "../components/PdfComponent";
 
-const PdfComponent = dynamic(() => import("../components/PdfComponent"), {
-  ssr: false
-});
 function page() {
   return (
     <div>

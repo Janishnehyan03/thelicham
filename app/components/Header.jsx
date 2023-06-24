@@ -35,11 +35,11 @@ function Header() {
             isOpen ? "h-screen" : ""
           }`}
         >
-          <div className="max-w-screen-xl flex flex-col	flex-wrap items-center justify-between mx-auto p-4 ">
+          <div className="max-w-screen-xl flex flex-col	flex-wrap items-center justify-between mx-auto p-4  ">
             <Link href="#" className="flex items-center">
               <img
                 src="/images/logo.jpg"
-                className="lg:h-20 h-16 mr-3"
+                className="h-[4.7rem] 2xl:h-20 mr-3"
                 alt="Thelicham Logo"
               />
             </Link>
@@ -73,7 +73,7 @@ function Header() {
                 isOpen ? "block" : "hidden"
               } w-full md:block md:w-auto mt-5`}
             >
-              <ul className="flex flex-col font-medium items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <ul className="flex flex-col font-medium items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 2xl:text-base text-sm">
                 <li>
                   <Link
                     href="/category/society"

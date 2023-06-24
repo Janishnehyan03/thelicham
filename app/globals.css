@@ -12,7 +12,6 @@
     url("https://fonts.gstatic.com/s/notosansmalayalam/v29/KFOmCnqEu92Fr1Mu4mxP.woff2")
       format("woff2");
 }
-
 @media print {
   .pdf-container {
     display: none;
@@ -20,6 +19,7 @@
 }
 .html-content {
   font-family: 'Noto Serif Malayalam', serif;
+  
 }
 
 

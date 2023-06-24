@@ -11,6 +11,11 @@ export default function Home() {
   return (
     <>
       <UserContextProvider>
+        <iframe
+          src="https://heyzine.com/flip-book/8ce59b8b8c.html"
+          frameborder="0"
+          className="w-full h-screen"
+        ></iframe>
         <Slider />
         <Cover />
         <Discussions />

@@ -1,10 +1,10 @@
 import React from "react";
-import PdfComponent from "../components/PdfComponent";
+import PlanComponent from "../components/PlanComponent";
 
 function page() {
   return (
     <div>
-      <PdfComponent />
+      <PlanComponent />
     </div>
   );
 }

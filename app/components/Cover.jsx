@@ -22,28 +22,29 @@ function Cover() {
             height={"276"}
           />
 
-          <article className="sections flex flex-wrap justify-around">
-            <a href="#">
-              <div
-                className="img h-96 w-80 rounded-lg"
-                style={{
-                  background: `url(https://images.unsplash.com/photo-1683526976156-1a3f1a315049?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3Nnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60)`,
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </a>
-            <div className="details ml-4">
-              <h2 className="mb-2 text-xl font-bold leading-tight text-gray-900 ">
-                <a href="#" className={notoSansMalayalam.className}>
-                  item.title
-                </a>
-              </h2>
-              <p className="font-light text-gray-500 ">item.author</p>
-            </div>
-          </article>
-          <div className="sections flex flex-wrap">
-            {data.slice(0, 3).map((item, key) => (
-              <article key={key} className="max-w-xs flex items-center mb-4">
+          <div className="sections  flex flex-wrap ml-4">
+            <article  className="max-w-2xl p-1 mx-3 bg-gray-100 rounded-lg flex items-center mb-4">
+              <a href="#">
+                <div
+                  className="img h-32 w-32 rounded-lg"
+                  style={{
+                    background: `url(https://images.unsplash.com/photo-1682687981974-c5ef2111640c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxMXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60)`,
+                    backgroundSize: "cover",
+                  }}
+                ></div>
+              </a>
+              <div className="details ml-4">
+                <h2 className="mb-2 text-xl font-bold leading-tight text-gray-900">
+                  <a href="#" className={notoSansMalayalam.className}>
+                    ഔലിയാപ്പേടി: ഭീതിയുടെ ഖുർആനിക തത്വവിചാരങ്ങൾ
+                  </a>
+                </h2>
+                <p className="font-light text-gray-500">ഷമീർ കെ.എസ്</p>
+              </div>
+            </article>
+
+            {data.slice(0, 4).map((item, key) => (
+              <article key={key} className="max-w-xs p-1 bg-gray-100 mx-3 rounded-lg flex items-center mb-4">
                 <a href="#">
                   <div
                     className="img h-32 w-32 rounded-lg"

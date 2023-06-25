@@ -14,7 +14,7 @@ const nextConfig = {
     baseUrl: "http://localhost:3000",
   },
   images: {
-    domains: ["images.unsplash.com", "plus.unsplash.com"],
+    domains: ["images.unsplash.com", "plus.unsplash.com", "res.cloudinary.com"],
   },
 };
 

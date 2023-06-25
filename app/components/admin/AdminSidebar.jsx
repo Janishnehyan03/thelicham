@@ -8,10 +8,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-
 async function AdminSidebar() {
   return (
-    <div className="bg-[#222123] max-h-max text-white w-64">
+    <div className="bg-[#222123] h-screen   text-white w-64">
       <div className="p-6">
         <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
         <p className="mt-2 text-gray-400">Welcome, Admin</p>

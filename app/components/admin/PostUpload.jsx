@@ -14,6 +14,7 @@ function PostUpload() {
   const [categories, setCategories] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [thumbnail, setThumbnail] = useState(null);
 
   const selectCategories = (e) => {
     const selectedCategoryId = e.target.value;
@@ -79,7 +80,6 @@ function PostUpload() {
     description: "",
     author: "",
     categories: selectedCategories,
-    thumbnail: "image",
     detailHtml: "",
     slug: "",
   };
@@ -91,13 +91,23 @@ function PostUpload() {
   };
 
   const handleSubmit = (e) => {
+    const uploadData = new FormData();
+    uploadData.append("title", formData.title);
+    uploadData.append("description", formData.description);
+    uploadData.append("author", formData.author);
+    uploadData.append("categories", selectedCategories);
+    uploadData.append("detailHtml", html);
+    uploadData.append("slug", formData.slug);
+    uploadData.append("thumbnail", thumbnail);
+
     e.preventDefault();
     setLoading(true);
-    Axios.post("/post", {
-      ...formData,
-      detailHtml: html,
-      categories: selectedCategories,
-    })
+    Axios.post(
+      "/post",
+
+      uploadData,
+      { headers: { "content-type": "multipart/form-data" } }
+    )
       .then((response) => {
         if (response.status === 200) {
           setFormData(initialValue);
@@ -199,6 +209,7 @@ function PostUpload() {
                         name="file-upload"
                         type="file"
                         className="sr-only"
+                        onChange={(e) => setThumbnail(e.target.files[0])}
                       />
                     </label>
                     <p className="pl-1">or drag and drop</p>

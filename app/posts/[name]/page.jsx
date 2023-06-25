@@ -19,7 +19,6 @@ const notoSansMalayalam = Noto_Serif_Malayalam({ subsets: ["latin"] });
 //   };
 // }
 export async function generateMetadata({ params }) {
-  
   // fetch data
   const { data } = await Axios.get(`/post/${params.name}`);
 
@@ -31,6 +30,7 @@ export async function generateMetadata({ params }) {
 async function getData(name) {
   try {
     const res = await Axios.get(`/post/${name}`);
+    console.log(res.data.data.post);
     return res.data.data.post;
   } catch (error) {
     console.log(error.response);
@@ -61,8 +61,9 @@ export default async function RepoPage({ params: { name } }) {
                 {post?.title}
               </h1>
               <Image
-                src="https://plus.unsplash.com/premium_photo-1681406994502-bb673c265877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-                alt={"title"}
+                // src={"https://res.cloudinary.com/df690pfy3/image/upload/v1687671789/iimxlibprzn8nqj6masi.jpg"}
+                src={post?.thumbnail}
+                alt={post.title}
                 className="w-full rounded-[20px]"
                 height={400}
                 width={400}
@@ -100,7 +101,7 @@ export default async function RepoPage({ params: { name } }) {
             </div>
 
             <div className={notoSansMalayalam.className}>
-              <PostContent details={post.detailHtml}/>
+              <PostContent details={post.detailHtml} />
             </div>
             <div className="pt-12 border-t ">
               <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">

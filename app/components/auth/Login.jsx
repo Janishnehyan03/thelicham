@@ -17,14 +17,17 @@ function LoginPage() {
     e.preventDefault();
     try {
       let res = await Axios.post("/auth/login", { email, password });
-      console.log(res);
       if (res.status === 200) {
         setCookie("login_token", res.data.token);
         localStorage.setItem("loggedIn", true);
         setUser(res.data.user);
         setEmail("");
         setPassword("");
-        router.push("/");
+        if (res.data.user?.role === "admin") {
+          router.push("/admin/dashboard");
+        } else {
+          router.push("/");
+        }
       }
     } catch (error) {
       console.log(error.response);

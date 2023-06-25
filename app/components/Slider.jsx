@@ -12,7 +12,7 @@ import Image from "next/image";
 const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 function Slider() {
   return (
-    <section className="bg-white  my-10">
+    <section className="bg-white my-10">
       <Swiper
         spaceBetween={50}
         navigation
@@ -29,7 +29,7 @@ function Slider() {
       >
         {data.map((item, key) => (
           <SwiperSlide key={key}>
-            <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+            <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 2xl:py-16 lg:grid-cols-12">
               <div className="mr-auto place-self-center lg:col-span-7">
                 <h1
                   className={`${notoSansMalayalam.className} text-red-900`}
@@ -37,7 +37,7 @@ function Slider() {
                 >
                   {item.title}
                 </h1>
-                <p className={notoSansMalayalam.className}>
+                <p className={notoSansMalayalam.className+ ' text-sm 2xl:text-base'}>
                   അതിനുള്ള ഒരു മാർഗം Black is Myself ന്റെ രചനയെ ഒരു ആത്മ രചനയുടെ
                   മാതൃകയാക്കുകയാണ്.“Haino’s approach is eclectic, borrowing
                   techniques from everything from Noh theater to Troubadour
@@ -52,11 +52,11 @@ function Slider() {
                   അകന്നും പ്രതിപ്രവർത്തിക്കുന്ന വാദ്യോപകരണങ്ങളുടെ മേളം.
                 </p>
               </div>
-              <div className="lg:mt-0 lg:col-span-5 lg:flex ">
+              <div className="lg:mt-0 lg:col-span-5 lg:flex">
                 <Image
                   height={400}
                   width={400}
-                  className="rounded-[10px]"
+                  className="rounded-[10px] ml-7"
                   src={item.image}
                   alt="mockup"
                 />

@@ -59,6 +59,7 @@ export default async function RepoPage({ params: { name } }) {
                 className={`text-4xl font-bold text-red-800 leading-tight md:text-5xl ${notoSansMalayalam.className}`}
               >
                 {post?.title}
+                
               </h1>
               <Image
                 // src={"https://res.cloudinary.com/df690pfy3/image/upload/v1687671789/iimxlibprzn8nqj6masi.jpg"}

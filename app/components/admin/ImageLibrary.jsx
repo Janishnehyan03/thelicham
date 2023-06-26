@@ -12,16 +12,48 @@ function ImageLibrary() {
   const [thumbnails, setThumbnails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [previewImages, setPreviewImages] = useState([]);
+  const [imagesData, setImagesData] = useState([]);
+
+  const handleImage = (e) => {
+    const files = Array.from(e.target.files);
+
+    const uploadPromises = files.map((file) => {
+      return setFileToBase(file);
+    });
+
+    Promise.all(uploadPromises)
+      .then((uploadedImages) => {
+        setImagesData(uploadedImages);
+      })
+      .catch((error) => {
+        console.error("Error uploading images:", error);
+      });
+  };
+
+  const setFileToBase = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const formData = new FormData();
-    formData.append("images", thumbnails);
+    // const formData = new FormData();
+    // formData.append("images", thumbnails);
     try {
-      let response = await Axios.post("/image/upload", formData, {
-        headers: { "content-type": "multipart/form-data" },
-      });
+      let response = await Axios.post(
+        "/image/upload",
+        { images: imagesData },
+  
+      );
       console.log(response.data);
       setLoading(false);
     } catch (error) {
@@ -118,8 +150,8 @@ function ImageLibrary() {
                         className="sr-only"
                         multiple
                         onChange={(e) => {
+                          handleImage(e);
                           setThumbnails(e.target.files);
-                          handleImageChange(e);
                         }}
                       />
                     </label>

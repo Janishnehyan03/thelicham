@@ -1,5 +1,6 @@
 "use client";
 import Axios from "@/utils/Axios";
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
@@ -9,7 +10,6 @@ function ImageLibrary() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [copiedIndex, setCopiedIndex] = useState(null);
   const [modelShow, setModelShow] = useState(false);
-  const [thumbnails, setThumbnails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [previewImages, setPreviewImages] = useState([]);
   const [imagesData, setImagesData] = useState([]);
@@ -49,12 +49,9 @@ function ImageLibrary() {
     // const formData = new FormData();
     // formData.append("images", thumbnails);
     try {
-      let response = await Axios.post(
-        "/image/upload",
-        { images: imagesData },
-  
-      );
-      console.log(response.data);
+      let response = await Axios.post("/image/upload", { images: imagesData });
+      setModelShow(false);
+      getImages()
       setLoading(false);
     } catch (error) {
       console.log(error.response);
@@ -151,7 +148,7 @@ function ImageLibrary() {
                         multiple
                         onChange={(e) => {
                           handleImage(e);
-                          setThumbnails(e.target.files);
+                          handleImageChange(e);
                         }}
                       />
                     </label>
@@ -183,7 +180,7 @@ function ImageLibrary() {
               <button
                 type="button"
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                // onClick={handleShow}
+                onClick={()=>setModelShow(false)}
               >
                 Cancel
               </button>
@@ -191,34 +188,42 @@ function ImageLibrary() {
           </div>
         )}
       </div>
-      <div className="grid grid-cols-3 gap-4">
-        {images.map((item, index) => (
-          <div
-            key={index}
-            className={`rounded-lg h-48 w-96 group ${
-              hoveredIndex === index ? "cursor-pointer" : "bg-gray-200"
-            }`}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <img
-              className="object-cover w-full h-40"
-              src={item.url}
-              alt="Image"
-            />
-
-            <button
-              className={`bg-gray-800 hidden transition hover:cursor-pointer group-hover:flex text-white rounded-full p-2 hover:bg-gray-600 ${
-                copiedIndex === index ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              onClick={() => handleCopyLink(item.url, index)}
-              disabled={copiedIndex === index}
+      <div className="grid grid-cols-3 gap-4 mt-2">
+        {images.length > 0 ? (
+          images.map((item, index) => (
+            <div
+              style={{
+                background: `url(${item.url})`,
+                backgroundSize: "cover",
+              }}
+              className="group h-64 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
-              {copiedIndex === index ? "Copied" : "COPY"}{" "}
-              <FontAwesomeIcon icon={faCopy} className="ml-3" />
-            </button>
+              <div className="p-5">
+                <button
+                  className={`bg-gray-800 hidden transition hover:cursor-pointer group-hover:flex text-white rounded-full p-2 hover:bg-gray-600 ${
+                    copiedIndex === index ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  onClick={() => handleCopyLink(item.url, index)}
+                  disabled={copiedIndex === index}
+                >
+                  {copiedIndex === index ? "Copied" : "COPY"}{" "}
+                  <FontAwesomeIcon icon={faCopy} className="ml-3" />
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div
+            role="status"
+            className="flex-1 h-screen items-center text-red-600 justify-center flex"
+          >
+            <FontAwesomeIcon
+              icon={faCircle}
+              className="animate-spin h-4 mr-2"
+            />
+            <p>loading...</p>
           </div>
-        ))}
+        )}
       </div>
     </>
   );

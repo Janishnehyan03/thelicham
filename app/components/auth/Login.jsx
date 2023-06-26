@@ -10,15 +10,18 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { setUser } = useUserContext();
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       let res = await Axios.post("/auth/login", { email, password });
       if (res.status === 200) {
         setCookie("login_token", res.data.token);
+        setLoading(false);
         localStorage.setItem("loggedIn", true);
         setUser(res.data.user);
         setEmail("");
@@ -30,8 +33,9 @@ function LoginPage() {
         }
       }
     } catch (error) {
+      setLoading(false);
       console.log(error.response);
-      setError(error.response);
+      setError(error.response.data.message);
     }
   };
   return (
@@ -90,13 +94,22 @@ function LoginPage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  onClick={(e) => handleLogin(e)}
-                  className="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                >
-                  Sign in
-                </button>
+                {loading ? (
+                  <button
+                    type="submit"
+                    className="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                  >
+                    Processing...
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    onClick={(e) => handleLogin(e)}
+                    className="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                  >
+                    Sign in
+                  </button>
+                )}
                 <p className="text-sm font-light text-gray-500 ">
                   Don’t have an account yet?
                   <Link

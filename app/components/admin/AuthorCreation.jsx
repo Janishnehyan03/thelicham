@@ -4,8 +4,9 @@ import { useState } from "react";
 
 function AuthorCreationForm() {
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
   const [formData, setFormData] = useState({
-    image: "",
     name: "",
     email: "",
     username: "",
@@ -13,6 +14,48 @@ function AuthorCreationForm() {
     facebook: "",
     instagram: "",
   });
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+
+    const uploadPromise = setFileToBase(file);
+
+    const imagePreview = new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+
+    imagePreview
+      .then((result) => {
+        setPreviewImage(result);
+      })
+      .catch((error) => {
+        console.error("Error reading file:", error);
+      });
+
+    uploadPromise
+      .then((uploadedImage) => {
+        setImage(uploadedImage);
+      })
+      .catch((error) => {
+        console.error("Error uploading image:", error);
+      });
+  };
+
+  const setFileToBase = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -26,10 +69,8 @@ function AuthorCreationForm() {
     event.preventDefault();
     setLoading(true);
     try {
-      let response = await Axios.post("/author", formData);
-      console.log(response.data);
+      let response = await Axios.post("/author", { ...formData, image: image });
       setFormData({
-        image: "",
         name: "",
         email: "",
         username: "",
@@ -37,6 +78,8 @@ function AuthorCreationForm() {
         facebook: "",
         instagram: "",
       });
+      setImage(null)
+      setPreviewImage(null)
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -53,6 +96,7 @@ function AuthorCreationForm() {
           </h2>
 
           <div className="mt-10">
+            {previewImage && <img src={previewImage} className="h-80" />}
             <div>
               <label
                 htmlFor="image"
@@ -64,8 +108,8 @@ function AuthorCreationForm() {
                 type="file"
                 id="image"
                 name="image"
-                className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                onChange={handleInputChange}
+                class="block w-full text-sm py-3 px-2 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                onChange={(e) => handleImage(e)}
               />
             </div>
 

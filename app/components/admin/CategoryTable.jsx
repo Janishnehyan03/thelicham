@@ -33,9 +33,9 @@ function CategoryTable({ categories, getCategories }) {
             <th scope="col" className="px-6 py-3">
               Category Name
             </th>
-            <th scope="col" className="px-6 py-3">
+            {/* <th scope="col" className="px-6 py-3">
               Created
-            </th>
+            </th> */}
             <th scope="col" className="px-6 py-3">
               Sub Categories
             </th>
@@ -58,16 +58,16 @@ function CategoryTable({ categories, getCategories }) {
                 >
                   {category?.name}
                 </th>
-                <td className="px-6 py-4">
+                {/* <td className="px-6 py-4">
                   {moment(category.createdAt).format("DD/MM/yyyy")}
-                </td>
+                </td> */}
                 <td className="px-6 py-4">
                   <div className="grid grid-cols-3">
                     {category.subCategories.map((item, ind) => (
                       <p
                         key={ind}
-                        className="bg-gray-500 m-2 p-2 rounded-[20px] text-white text-center"
-                      >
+                        className="bg-gray-300 my-2 text-center shadow-lg text-primary-800 text-xs font-medium  items-center px-2 mr-2 py-2 rounded-[20px]"
+                        >
                         {item.name}
                       </p>
                     ))}

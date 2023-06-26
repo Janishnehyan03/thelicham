@@ -30,7 +30,6 @@ export async function generateMetadata({ params }) {
 async function getData(name) {
   try {
     const res = await Axios.get(`/post/${name}`);
-    console.log(res.data.data.post);
     return res.data.data.post;
   } catch (error) {
     console.log(error.response);
@@ -59,7 +58,6 @@ export default async function RepoPage({ params: { name } }) {
                 className={`text-4xl font-bold text-red-800 leading-tight md:text-5xl ${notoSansMalayalam.className}`}
               >
                 {post?.title}
-                
               </h1>
               <Image
                 // src={"https://res.cloudinary.com/df690pfy3/image/upload/v1687671789/iimxlibprzn8nqj6masi.jpg"}
@@ -105,20 +103,14 @@ export default async function RepoPage({ params: { name } }) {
               <PostContent details={post.detailHtml} />
             </div>
             <div className="pt-12 border-t ">
-              <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
+              <div className="flex items-center justify-center space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
                 <img
-                  src="https://source.unsplash.com/75x75/?portrait"
+                  src={post.author.image}
                   alt=""
-                  className="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 "
+                  className=" w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 "
                 />
                 <div className="flex flex-col">
-                  <h4 className="text-lg font-semibold">Leroy Jenkins</h4>
-                  <p className="">
-                    Sed non nibh iaculis, posuere diam vitae, consectetur neque.
-                    Integer velit ligula, semper sed nisl in, cursus commodo
-                    elit. Pellentesque sit amet mi luctus ligula euismod
-                    lobortis ultricies et nibh.
-                  </p>
+                  <h4 className="text-lg font-semibold">{post.author.name}</h4>
                 </div>
               </div>
               <div className="flex justify-center pt-4 space-x-4 align-center">

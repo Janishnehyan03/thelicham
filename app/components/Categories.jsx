@@ -48,7 +48,7 @@ async function Categories() {
                 className="p-6 group hover:cursor-pointer bg-white rounded-lg border border-gray-200 shadow-md  "
               >
                 <div className="flex  justify-between items-center mb-5 text-gray-500">
-                  <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+                  <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
                     <svg
                       className="mr-1 w-3 h-3"
                       fill="currentColor"
@@ -80,7 +80,7 @@ async function Categories() {
                   </div>
                   <a
                     href="#"
-                    className="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline"
+                    className="inline-flex items-center font-medium text-primary-600  hover:underline"
                   >
                     Read more
                     <svg

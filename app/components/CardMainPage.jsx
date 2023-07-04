@@ -1,31 +1,27 @@
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Anek_Malayalam } from "next/font/google";
 import Image from "next/image";
-import data from "@/public/dummydata.json";
 
-import Link from "next/link";
 import Axios from "@/utils/Axios";
+import Link from "next/link";
 const notoSansMalayalam = Anek_Malayalam({ subsets: ["latin"] });
 
 async function getData(name) {
   try {
     const res = await Axios.get(`/post/category/${name}`);
-    console.log(res.data.posts);
     return res.data.posts;
   } catch (error) {
     console.log(error.response);
   }
 }
-async function Discussions({ name }) {
-  const posts = await getData("series");
+async function CardMainPage({ name }) {
+  const posts = await getData(name);
 
   return (
     <section className="bg-white ">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-          <h2 className="mb-4 uppercase text-3xl lg:text-4xl tracking-tight font-extrabold hover:text-black text-red-900 dark:text-white">
-            Discussions
+          <h2 className="mb-4 uppercase text-3xl lg:text-4xl tracking-tight font-extrabold hover:text-black text-red-900 ">
+            {name}
           </h2>
         </div>
         <div className="grid gap-8 lg:grid-cols-3">
@@ -35,7 +31,7 @@ async function Discussions({ name }) {
                 key={key}
                 className="max-w-sm bg-white border hover:bg-gray-100 group border-gray-200 rounded-lg shadow  "
               >
-                <Link href={`/posts/${item.title}`}>
+                <Link href={`/posts/${item.slug}`}>
                   <Image
                     className="rounded-t-lg"
                     src={item.thumbnail}
@@ -46,7 +42,7 @@ async function Discussions({ name }) {
                 </Link>
 
                 <div className="p-5">
-                  <Link href={`/posts/${item.title}`}>
+                  <Link href={`/posts/${item.slug}`}>
                     <h5
                       className={`${notoSansMalayalam.className} font-bold mb-2 transition group-hover:text-red-500 text-red-800`}
                     >
@@ -76,4 +72,4 @@ async function Discussions({ name }) {
   );
 }
 
-export default Discussions;
+export default CardMainPage;

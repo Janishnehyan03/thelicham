@@ -2,7 +2,7 @@
 import { UserContextProvider } from "@/utils/userContext";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Cover from "./components/Cover";
-import Discussions from "./components/Discussions";
+import CardMainPage from "./components/CardMainPage";
 import Slider from "./components/Slider";
 import TopPosts from "./components/TopPosts";
 import Script from "next/script";
@@ -18,7 +18,7 @@ export default function Home() {
         ></iframe> */}
         <Slider />
         <Cover />
-        <Discussions />
+        <CardMainPage name={"series"} />
         <TopPosts />
       </UserContextProvider>
       <Script

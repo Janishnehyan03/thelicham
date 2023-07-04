@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import moment from "moment/moment";
-import Link from "next/link";
-import React from "react";
+import { useState } from "react";
 import EditCategory from "./EditCategory";
 
 function CategoryTable({ categories, getCategories }) {
@@ -23,7 +20,7 @@ function CategoryTable({ categories, getCategories }) {
     <div className="relative overflow-x-auto rounded-lg">
       {editPopupVisible && (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <EditCategory category={selectedCategory} onClose={closeEditPopup} />
+          <EditCategory selectedCategory={selectedCategory} subCategories={selectedCategory.subCategories}  onClose={closeEditPopup} />
         </div>
       )}
 
@@ -67,7 +64,7 @@ function CategoryTable({ categories, getCategories }) {
                       <p
                         key={ind}
                         className="bg-gray-300 my-2 text-center shadow-lg text-primary-800 text-xs font-medium  items-center px-2 mr-2 py-2 rounded-[20px]"
-                        >
+                      >
                         {item.name}
                       </p>
                     ))}

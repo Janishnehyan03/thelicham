@@ -20,12 +20,16 @@ function CategoryTable({ categories, getCategories }) {
     <div className="relative overflow-x-auto rounded-lg">
       {editPopupVisible && (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <EditCategory selectedCategory={selectedCategory} subCategories={selectedCategory.subCategories}  onClose={closeEditPopup} />
+          <EditCategory
+            selectedCategory={selectedCategory}
+            subCategories={selectedCategory.subCategories}
+            onClose={closeEditPopup}
+          />
         </div>
       )}
 
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-sm text-left text-gray-500 ">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
           <tr>
             <th scope="col" className="px-6 py-3">
               Category Name
@@ -51,9 +55,9 @@ function CategoryTable({ categories, getCategories }) {
               <tr key={index} className="bg-white border-2">
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4  "
                 >
-                  {category?.name}
+                  <p className="font-medium text-gray-900"> {category?.name}</p>
                 </th>
                 {/* <td className="px-6 py-4">
                   {moment(category.createdAt).format("DD/MM/yyyy")}
@@ -63,7 +67,7 @@ function CategoryTable({ categories, getCategories }) {
                     {category.subCategories.map((item, ind) => (
                       <p
                         key={ind}
-                        className="bg-gray-300 my-2 text-center shadow-lg text-primary-800 text-xs font-medium  items-center px-2 mr-2 py-2 rounded-[20px]"
+                        className="bg-gray-300 my-2 text-center text-gray-800 shadow-lg text-primary-800 text-xs font-medium  items-center px-2 mr-2 py-2 rounded-[20px]"
                       >
                         {item.name}
                       </p>

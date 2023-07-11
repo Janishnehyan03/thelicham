@@ -1,13 +1,17 @@
+"use client";
+import React, { useEffect, useState } from "react";
 import Axios from "@/utils/Axios";
-import { useEffect, useState } from "react";
 
 function EditCategory({ onClose, subCategories, selectedCategory }) {
   const [category, setCategory] = useState(null);
-  const [categoryName, setCategoryName] = useState(null);
+  const [categoryName, setCategoryName] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [newSubCategory, setNewSubCategory] = useState("");
+  const [selectedCategoryToAdd, setSelectedCategoryToAdd] = useState("");
 
   const getCategory = async () => {
     try {
-      let { data } = await Axios.get(`/category/${selectedCategory._id}`);
+      const { data } = await Axios.get(`/category/${selectedCategory._id}`);
       console.log(data);
       setCategory(data);
     } catch (error) {
@@ -15,29 +19,71 @@ function EditCategory({ onClose, subCategories, selectedCategory }) {
     }
   };
 
-  const handleCategoryNameChange = (event) => {};
+  const getCategories = async () => {
+    try {
+      const { data } = await Axios.get("/category");
+      console.log(data);
+      setCategories(data.data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const handleCategoryNameChange = (event) => {
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      name: event.target.value,
+    }));
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      const subCategoryIds = category.subCategories.map(
+        (subCategory) => subCategory._id
+      );
+
       const response = await Axios.patch(`/category/${category._id}`, {
-        name: categoryName,
+        name: category.name,
+        subcategoryIds: subCategoryIds,
       });
 
-      // Handle the response or perform any additional logic
       console.log("Category updated:", response.data);
 
-      onClose(); // Close the edit popup after successfully updating the category
+      onClose();
     } catch (error) {
-      // Handle error if the API request fails
       console.log(error.response);
       console.error("Error updating category:", error);
     }
   };
+
+  const handleAddSubCategory = async () => {
+    if (newSubCategory.trim() === "") {
+      return;
+    }
+
+    const subCategory = {
+      _id: Date.now().toString(),
+      name: newSubCategory,
+      category: selectedCategoryToAdd,
+    };
+
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      subCategories: [...prevCategory.subCategories, subCategory],
+    }));
+
+    setNewSubCategory("");
+    await Axios.post("/category", { name: newSubCategory });
+    getCategories();
+  };
+
   useEffect(() => {
     getCategory();
+    getCategories();
   }, []);
+
   return (
     <div className="bg-gray-100 p-8 rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Edit Category</h2>
@@ -52,21 +98,53 @@ function EditCategory({ onClose, subCategories, selectedCategory }) {
           <input
             id="categoryName"
             type="text"
-            value={selectedCategory.name}
+            value={category?.name}
             onChange={handleCategoryNameChange}
             className="border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <p className="text-center font-bold uppercase mt-2">Sub Categories</p>
-          {category?.subCategories.map((item, key) => (
-            <p
-              className="bg-gray-200 p-2 my-1 rounded-full text-center"
-              key={key}
+          <div className="grid grid-cols-3 gap-2">
+            {category &&
+              category.subCategories.map((item, key) => (
+                <p
+                  className="bg-gray-200 p-2 my-1 rounded-full text-center cursor-pointer"
+                  key={key}
+                  onClick={() => handleSubCategoryClick(item)}
+                >
+                  {item.name}
+                </p>
+              ))}
+          </div>
+          <div className="flex items-center mt-2">
+            <select
+              value={selectedCategoryToAdd}
+              onChange={(e) => setSelectedCategoryToAdd(e.target.value)}
+              className="border border-gray-300 px-4 py-2 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              {item.name}
-            </p>
-          ))}
+              <option value="">Select Category</option>
+              {categories.length > 0 &&
+                categories.map((category) => (
+                  <option value={category._id} key={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+            </select>
+            <input
+              type="text"
+              value={newSubCategory}
+              onChange={(e) => setNewSubCategory(e.target.value)}
+              className="border border-gray-300 px-4 py-2 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="New Subcategory"
+            />
+            <button
+              type="button"
+              onClick={handleAddSubCategory}
+              className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600"
+            >
+              Add
+            </button>
+          </div>
         </div>
-        {/* Add more fields for editing category properties */}
         <div className="flex space-x-2">
           <button
             type="submit"

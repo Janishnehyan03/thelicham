@@ -1,4 +1,4 @@
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment/moment";
 import Link from "next/link";
@@ -23,6 +23,9 @@ function PostsTable({ posts }) {
               Category
             </th>
             <th scope="col" className="px-6 py-3">
+              View
+            </th>
+            <th scope="col" className="px-6 py-3">
               Edit
             </th>
           </tr>
@@ -35,7 +38,7 @@ function PostsTable({ posts }) {
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  {post?.title}
+                  {post?.title.substring(0,35)}...
                 </th>
                 <td className="px-6 py-4">{post?.author?.name}</td>
                 <td className="px-6 py-4">
@@ -47,6 +50,14 @@ function PostsTable({ posts }) {
                       {item.name}
                     </p>
                   ))}
+                </td>
+                <td className="px-6 py-4">
+                  <a target="_blank" href={`/posts/${post.slug}`}>
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      className="h-4 text-blue-700"
+                    />
+                  </a>
                 </td>
                 <td className="px-6 py-4">
                   <Link href={`/admin/edit-post/${post.slug}`}>

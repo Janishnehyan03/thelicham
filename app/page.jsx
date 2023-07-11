@@ -18,6 +18,7 @@ export default function Home() {
         ></iframe> */}
         <Slider />
         <Cover />
+        <CardMainPage name={"ANTHROPOLOGY"} />
         <CardMainPage name={"series"} />
         <TopPosts />
       </UserContextProvider>

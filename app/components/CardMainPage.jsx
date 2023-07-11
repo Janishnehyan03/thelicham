@@ -32,12 +32,14 @@ async function CardMainPage({ name }) {
                 className="max-w-sm bg-white border hover:bg-gray-100 group border-gray-200 rounded-lg shadow  "
               >
                 <Link href={`/posts/${item.slug}`}>
-                  <Image
+                  <img
                     className="rounded-t-lg"
                     src={item.thumbnail}
                     alt={item.title}
-                    width={600}
-                    height={600}
+                    style={{
+                      height: "200px",
+                      width: "100%",
+                    }}
                   />
                 </Link>
 
@@ -46,17 +48,14 @@ async function CardMainPage({ name }) {
                     <h5
                       className={`${notoSansMalayalam.className} font-bold mb-2 transition group-hover:text-red-500 text-red-800`}
                     >
-                      {item.title}
+                      {item.title.substring(0, 50)} ...
                     </h5>
                   </Link>
                   <p className={notoSansMalayalam.className}>
-                    {item.description?.substring(0, 200) +
-                      (item.description && item.description.length > 200
-                        ? "..."
-                        : "")}
+                    {item.description?.substring(0, 150)}...
                   </p>
                   <div className="flex mt-3 items-center">
-                    <img src={item.author?.Image} className="h-16" alt="" />
+                    <img src={item.author?.image} className="h-7 mr-2 rounded-full" alt="" />
                     <p
                       className={`${notoSansMalayalam.className} font-semibold text-gray-400`}
                     >

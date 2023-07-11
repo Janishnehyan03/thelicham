@@ -102,16 +102,20 @@ export default async function RepoPage({ params: { name } }) {
             <div className={notoSansMalayalam.className}>
               <PostContent details={post.detailHtml} />
             </div>
-            <div className="pt-12 border-t ">
-              <div className="flex items-center justify-center space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
+            <div>
+              <div className="flex flex-col items-center justify-center">
                 <img
+                  style={{ borderRadius: "9999px" }}
+                  className=" w-20   rounded-full"
                   src={post.author.image}
                   alt=""
-                  className=" w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 "
                 />
-                <div className="flex flex-col">
-                  <h4 className="text-lg font-semibold">{post.author.name}</h4>
-                </div>
+
+                <h4
+                  className={`${notoSansMalayalam.className} text-lg font-semibold`}
+                >
+                  {post.author.name}
+                </h4>
               </div>
               <div className="flex justify-center pt-4 space-x-4 align-center">
                 <a

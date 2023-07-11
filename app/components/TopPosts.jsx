@@ -39,6 +39,15 @@ function TopPosts() {
                   key={key}
                   className="p-6 group hover:cursor-pointer bg-white rounded-lg border border-gray-200 shadow-md  "
                 >
+                    <div style={{ width: "100%", height: "250px",borderRadius:"20px",marginBottom:"1rem" }}>
+                      <img
+                        alt={item.title}
+                        src={item.thumbnail}
+                        width={10}
+                        height={0}
+                        style={{ width: "100%", height: 250,borderRadius:8 }} // optional
+                      />
+                    </div>
                   <div className="flex  justify-between items-center mb-5 text-gray-500">
                     <div>
                       {item.categories.map((category, ind) => (
@@ -63,9 +72,10 @@ function TopPosts() {
                       href={`/posts/${item.slug}`}
                       className={notoSansMalayalam.className}
                     >
-                       {item.title}
+                      {item.title}
                     </Link>
                   </h2>
+
                   <p className={notoSansMalayalam.className}>
                     {item.description?.substring(0, 200) +
                       (item.description && item.description.length > 200
@@ -79,7 +89,9 @@ function TopPosts() {
                         src={item.author?.image}
                         alt="Jese Leos avatar"
                       />
-                      <span className={notoSansMalayalam.className}>{item.author?.name}</span>
+                      <span className={notoSansMalayalam.className}>
+                        {item.author?.name}
+                      </span>
                     </div>
                     <Link
                       href={`/posts/${item.slug}`}
